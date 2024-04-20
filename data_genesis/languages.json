@@ -1,0 +1,206 @@
+[
+    {
+        "id":4,
+        "nom":"C# NET MVC with EF core and Postgres",
+        "syntax":{
+            "namespace":"namespace",
+            "namespaceStart":"{",
+            "namespaceEnd":"}"
+        },
+        "types":{
+            "int":"int",
+            "double":"double",
+            "string":"string?",
+            "date":"DateOnly",
+            "timestamp":"DateTime"
+        },
+        "typeParsers":{
+            "int":"int.Parse([value])",
+            "double":"Double.Parse([value])",
+            "string?":"[value]",
+            "DateOnly":"DateOnly.Parse([value])",
+            "DateTime":"DateTime.SpecifyKind(DateTime.Parse([value]), DateTimeKind.Utc)"
+        },
+        "skeleton":"csharppsql_skeleton",
+        "projectNameTags":[
+            "[projectNameMaj]/Controllers/HomeController.cs",
+            "[projectNameMaj]/Models/ErrorViewModel.cs",
+            "[projectNameMaj]/Views/Shared/_Layout.cshtml",
+            "[projectNameMaj]/Views/_ViewImports.cshtml",
+            "[projectNameMaj]/Program.cs"
+        ],
+        "additionnalFiles":[
+            {
+                "name":"[projectNameMaj].sln",
+                "content":"csharp/data/solution.templ"  
+            },
+            {
+                "name":"[projectNameMaj]/[projectNameMaj].csproj",
+                "content":"csharp/data/csproj.templ"  
+            }
+        ],
+        "model":{
+            "modelImports":[
+                "using System.ComponentModel.DataAnnotations;",
+                "using System.ComponentModel.DataAnnotations.Schema;"
+
+            ],
+            "modelExtends":"",
+            "modelAnnotations":[
+                "[Table(\"[tableName]\")]"
+            ],
+            "modelPrimaryFieldAnnotations":[
+                "[Key]"
+            ],
+            "modelForeignFieldAnnotations":[
+                "[ForeignKey(\"[columnName]\")]"
+            ],
+            "modelFieldAnnotations":[
+                "[Column(\"[columnName]\")]"
+            ],
+            "modelFieldCase":"Maj",
+            "modelFieldContent":"public [fieldType] [fieldName[modelFieldCase]]{ get; set; }",
+            "modelGetter":"",
+            "modelSetter":"",
+            "modelConstructors":[],
+            "modelSavePath":"[projectNameMaj]/Models",
+            "modelForeignContextAttr":"public DbSet<[classNameMaj]> [classNameMaj] { get; set; }",
+            "modelAdditionnalFiles":[
+                {
+                    "name" : "[classNameMaj]Context.cs",
+                    "content" : "csharp/data/context.templ"
+                }
+            ],
+            "modelExtension":"cs",
+            "modelPackage":"[projectNameMaj].Models",
+            "modelTemplate":"ModelTemplate"
+        },
+        "controller":{
+            "controllerImports":[
+                "using Microsoft.AspNetCore.Mvc;",
+                "using Microsoft.EntityFrameworkCore;",
+                "using [projectNameMaj].Models;"
+            ],
+            "controllerAnnotations":[],
+            "controllerExtends":" : Controller",
+            "controllerName":"[classNameMaj]Controller",
+            "controllerFields":[
+                {
+                    "controllerFieldAnnotations":[],
+                    "controllerFieldContent":"private readonly [classNameMaj]Context _context;"
+                }
+            ],
+            "controllerFieldsForeign": {
+                "controllerFieldAnnotations":[],
+                "controllerFieldContent":"private readonly [foreignNameMaj]Context _context[foreignNameMaj];"
+            },
+            "controllerChangeInstanciation":{
+                "template":"o.[fieldNameMaj]=[content];",
+                "value":"[fieldNameMin]"
+            },
+            "controllerWhereInstanciation":{
+                "template":"",
+                "value":""
+            },
+            "controllerForeignInstanciation":{
+                "template":"o.[fieldNameMaj]=await _context.[foreignType].FirstOrDefaultAsync(o => o.[referencedFieldNameMaj] == [content]);",
+                "value":"[foreignNameMin]"
+            },
+            "controllerForeignList":"ViewData[\"[foreignNameMin]\"] = await _context[foreignType].[foreignType].ToListAsync();",
+            "controllerForeignContextParam" : "[foreignNameMaj]Context context[foreignNameMaj]",
+            "controllerForeignContextInstanciation" : "_context[foreignNameMaj] = context[foreignNameMaj];",
+            "controllerConstructors":[
+                "public [classNameMaj]Controller([classNameMaj]Context context[controllerForeignContextParam]){_context = context; [controllerForeignContextInstanciation]}"
+            ],
+            "controllerForeignInclude":".Include(e=>e.[foreignNameMaj])",
+            "controllerMethods":[
+                {
+                    "controllerMethodAnnotations":["[HttpGet]"],
+                    "controllerMethodParameter":"",
+                    "controllerMethodContent":"csharp/controller/csharpControllerRead"
+                },
+                {
+                    "controllerMethodAnnotations":[
+                        "[HttpPost]"
+                    ],
+                    "controllerMethodParameter":"string [fieldNameMin]",
+                    "controllerMethodContent":"csharp/controller/csharpControllerCreate"
+                },
+                {
+                    "controllerMethodAnnotations":[
+                        "[HttpPut(\"{id}\")]"
+                    ],
+                    "controllerMethodParameter":"string [fieldNameMin]",
+                    "controllerMethodContent":"csharp/controller/csharpControllerEdit"
+                },
+                {
+                    "controllerMethodAnnotations":[
+                        "[HttpDelete(\"{id}\")]"
+                    ],
+                    "controllerMethodParameter":"",
+                    "controllerMethodContent":"csharp/controller/csharpControllerDelete"
+                },
+                {
+                    "controllerMethodAnnotations":[],
+                    "controllerMethodParameter":"",
+                    "controllerMethodContent":"csharp/controller/csharpControllerExists"
+                }
+            ],
+            "controllerSavepath":"[projectNameMaj]/Controllers",
+            "controllerExtension":"cs",
+            "controllerPackage":"[projectNameMaj].Controllers",
+            "controllerTemplate":"ControllerTemplate",
+            "controllerNameSuffix":"Controller"
+        },
+        "view":{
+            "viewForeignList":"var [foreignNameMin]=(List<[foreignNameMaj]>)ViewData[\"[foreignNameMin]\"];",
+            "viewTableHeader":"<th scope=\"col\">[fieldNameFormattedMaj]</th>",
+            "foreignFieldGet":".Label",
+            "viewTableLine":"<td>@o.[fieldNameMaj][foreignFieldGet]</td>",
+            "viewUpdateFormForeignField":"csharp/view/components/csharpViewUpdateForeign",
+            "viewUpdateFormField":{
+                "int":"csharp/view/components/csharpViewUpdateInt",
+                "double":"csharp/view/components/csharpViewUpdateDouble",
+                "string?":"csharp/view/components/csharpViewUpdateString",
+                "DateOnly":"csharp/view/components/csharpViewUpdateDate",
+                "DateTime":"csharp/view/components/csharpViewUpdateTimestamp"
+            },
+            "viewInsertFormForeignField":"csharp/view/components/csharpViewInsertForeign",
+            "viewInsertFormField":{
+                "int":"csharp/view/components/csharpViewInsertInt",
+                "double":"csharp/view/components/csharpViewInsertDouble",
+                "string?":"csharp/view/components/csharpViewInsertString",
+                "DateOnly":"csharp/view/components/csharpViewInsertDate",
+                "DateTime":"csharp/view/components/csharpViewInsertTimestamp"
+            },
+            "viewName":"Index",
+            "viewContent":"csharp/view/csharpView",
+            "viewSavePath":"[projectNameMaj]/Views/[classNameMaj]",
+            "viewExtension":"cshtml"
+        },
+        "customChanges":[
+            {
+                "path":"[projectNameMaj]/appsettings.json",
+                "changes":"\"[classNameMaj]Context\": \"server=[databaseHost];username=[user];database=[databaseName];Password=[pwd]\",",
+                "withEndComma":false
+            },
+            {
+                "path":"[projectNameMaj]/Program.cs",
+                "changes":"builder.Services.AddDbContext<[classNameMaj]Context>(options => options.UseNpgsql(\"Host=[databaseHost];Database=[databaseName];Username=[user];Password=[pwd]\"));",
+                "withEndComma":true
+            }
+        ],
+        "navbarLinks":{
+            "path":"[projectNameMaj]/Views/Shared/Sidebar.tsx",
+            "link":"<IonRouterLink href=\"/[classNameMaj]\" routerDirection=\"none\"><IonItem button><IonIcon slot=\"start\" name='[classNameformattedMaj]'></IonIcon><IonLabel>[classNameformattedMaj]</IonLabel></IonItem></IonRouterLink> \n"
+        },
+        "appContent":{
+            "path":"[projectNameMaj]/Views/Shared/App.tsx",
+            "link":"<Route path=\"/[classNameMaj]\" exact={true}><[classNameMaj] /></Route> \n"
+        },
+        "appImport":{
+            "path":"[projectNameMaj]/Views/Shared/App.tsx",
+            "imports":"import [classNameMaj] from './pages/[classNameMaj]';\n"
+        }
+    }
+]

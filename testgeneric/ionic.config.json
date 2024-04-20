@@ -1,0 +1,7 @@
+{
+  "name": "testgeneric",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

@@ -1,0 +1,10 @@
+<IonItem>
+    <IonLabel>[foreignNameFormattedMaj]</IonLabel>
+    <IonSelect value={selectedOption}>
+    {[foreignNameMin].map(f => (
+        <IonSelectOption key={f.value} value={f.value} selected={f.[foreignPrimaryNameMaj] == selectedValue}>
+        {f.label}
+        </IonSelectOption>
+    ))}
+    </IonSelect>
+</IonItem>

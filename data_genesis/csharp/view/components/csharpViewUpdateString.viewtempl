@@ -1,0 +1,4 @@
+<IonItem>
+    <IonLabel>[fieldNameFormattedMaj]</IonLabel>
+    <IonInput name="[fieldNameMin]" type="text" value={edited[classNameMaj].[fieldNameMin]} onIonChange={(e) => setEdited[classNameMaj]({ ...edited[classNameMaj], [fieldNameMin]: e.detail.value! })}></IonInput>
+</IonItem>

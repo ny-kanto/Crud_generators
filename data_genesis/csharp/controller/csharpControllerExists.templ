@@ -1,0 +1,4 @@
+private bool [classNameMaj]Exists([primaryType] id)
+{
+    return (_context.[classNameMaj]?.Any(e => e.[primaryNameMaj] == id)).GetValueOrDefault();
+}

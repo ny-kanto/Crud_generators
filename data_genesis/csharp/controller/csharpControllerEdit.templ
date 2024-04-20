@@ -1,0 +1,23 @@
+// PUT: api/[classNameMaj]/5
+public async Task<IActionResult> Put[classNameMaj]([primaryType] id, [classNameMaj] [classNameMin])
+{
+    _context.Entry([classNameMin]).State = EntityState.Modified;
+
+    try
+    {
+        await _context.SaveChangesAsync();
+    }
+    catch (DbUpdateConcurrencyException)
+    {
+        if (![classNameMaj]Exists(id))
+        {
+            return NotFound();
+        }
+        else
+        {
+            throw;
+        }
+    }
+
+    return NoContent();
+}

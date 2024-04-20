@@ -1,0 +1,143 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { IonContent, IonHeader, IonPage, IonRefresher, IonRefresherContent, IonTitle, IonToolbar, IonItemSliding, IonFab, IonFabButton, IonIcon, IonButton, IonInput, IonModal, IonItem, IonMenuButton, IonLabel, IonAlert, IonSelect, IonSelectOption } from '@ionic/react';
+import { add, create, trash } from 'ionicons/icons';
+import Sidebar from './Sidebar';
+
+const [classNameMaj]: React.FC = () => {
+    const [[classNameMin]List, set[classNameMaj]List] = useState<any[]>([]);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [edited[classNameMaj], setEdited[classNameMaj]] = useState({ idUsers: 0, label: '', prenom: '' });
+    const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetch[classNameMaj]List = async () => {
+      try {
+        const response = await axios.get('http://localhost:5189/api/[classNameMaj]');
+        set[classNameMaj]List(response.data as any[]);
+        console.log(response.data[0]);
+      } catch (error) {
+        console.error('Error fetching [classNameMaj] list:', error);
+      }
+    };
+
+    fetch[classNameMaj]List();
+  }, []);
+
+  const handleDelete = async (id: number) => {
+    const confirmDelete = window.confirm(`Are you sure you want to delete [classNameMin] ${id}?`);
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:5189/api/[classNameMaj]/${id}`);
+        set[classNameMaj]List([classNameMin]List.filter(([classNameMin]: any) => [classNameMin].id[classNameMaj] !== id));
+      } catch (error) {
+        console.error('Error deleting [classNameMin]:', error);
+      }
+    }
+  };
+
+  const openEditModal = ([classNameMin]: any) => {
+    setEdited[classNameMaj]([classNameMin]);
+    setShowEditModal(true);
+  }
+
+  const handleAdd = () => {
+    setShowAddModal(true);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(false);
+    const url = 'http://localhost:5189/api/[classNameMaj]';
+    try {
+      const response = await axios.post(url, edited[classNameMaj]);
+      set[classNameMaj]List([...[classNameMin]List, response.data]);
+      setShowAddModal(false);
+    } catch (error) {
+      console.error('Error adding [classNameMin]:', error);
+    }
+  };
+
+  const handleEditFormSubmit = async () => {
+    try {
+      await axios.put(`http://localhost:5189/api/[classNameMaj]/${edited[classNameMaj].id[classNameMaj]}`, edited[classNameMaj]);
+      console.log('[classNameMaj] data updated successfully');
+    } catch (error) {
+      console.error('Error updating [classNameMin]:', error);
+    }
+  }
+
+  return (
+    <>
+
+    <Sidebar/>
+
+    <IonPage className="ion-page" id="main-content">
+      <IonHeader>
+          <IonToolbar>
+            <IonButton slot="start">
+              <IonMenuButton />
+            </IonButton>
+            <IonTitle size="large">Liste des [classNameMin]s</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+      <IonContent fullscreen>
+          <IonRefresher slot="fixed">
+            <IonRefresherContent></IonRefresherContent>
+          </IonRefresher>
+
+          {/* Bouton d'action Ajouter */}
+          <IonFab vertical="bottom" horizontal="end" slot="fixed">
+            <IonFabButton onClick={handleAdd}>
+              <IonIcon icon={add} />
+            </IonFabButton>
+          </IonFab>
+
+
+        {/* Affichage du formulaire dans un IonModal */}
+          <IonModal isOpen={showAddModal} onDidDismiss={() => setShowAddModal(false)}>
+            <IonContent>
+              <IonTitle>Ajouter un [classNameMin]</IonTitle>
+              <form onSubmit={handleFormSubmit}>
+                [viewInsertFormField]
+            <IonButton type="submit">Ajouter</IonButton>
+            <IonButton onClick={() => setShowAddModal(false)}>Annuler</IonButton>
+            </form>
+          </IonContent>
+        </IonModal>
+
+        {/* Modification du formulaire dans un IonModal */}
+          <IonModal isOpen={showEditModal} onDidDismiss={() => setShowEditModal(false)}>
+            <IonContent>
+              <IonTitle>Modifier l'[classNameMin]</IonTitle>
+              [viewUpdateFormField]
+              <IonButton onClick={handleEditFormSubmit}>Enregistrer</IonButton>
+              <IonButton onClick={() => setShowEditModal(false)}>Annuler</IonButton>
+            </IonContent>
+          </IonModal>
+
+        {/* Listes des objets */}
+        {[classNameMin]List.map(([classNameMin]: any) => (
+        <IonItemSliding key={[classNameMin].id[classNameMaj]}>
+            <IonItem>
+              <IonLabel>{[classNameMin].label}</IonLabel>
+              <IonButton color="secondary" onClick={() => openEditModal([classNameMin])}>
+                <IonIcon slot="icon-only" icon={create} />
+              </IonButton>
+              <IonButton color="danger" onClick={() => handleDelete([classNameMin].id[classNameMaj])}>
+                <IonIcon slot="icon-only" icon={trash} />
+              </IonButton>
+            </IonItem>
+          </IonItemSliding>
+        ))}
+      </IonContent>
+
+    </IonPage>
+    </>
+  );
+};
+
+
+export default [classNameMaj];

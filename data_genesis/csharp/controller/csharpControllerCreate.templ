@@ -1,0 +1,8 @@
+// POST: api/[classNameMaj]
+public async Task<ActionResult<[classNameMaj]>> Post[classNameMaj]([classNameMaj] [classNameMin])
+{
+    _context.[classNameMaj].Add([classNameMin]);
+    await _context.SaveChangesAsync();
+
+    return CreatedAtAction("Get[classNameMaj]", new { id = [classNameMin].[primaryNameMaj] }, [classNameMin]);
+}

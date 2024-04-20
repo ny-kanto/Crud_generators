@@ -1,0 +1,4 @@
+<IonItem>
+      <IonLabel>[fieldNameFormattedMaj]</IonLabel>
+      <IonDatetime displayFormat="YYYY-MM-DDTHH:mm" name="[fieldNameMin]" value={edited[classNameMaj].[fieldNameMin]} onIonChange={(e) => setEdited[classNameMaj]({ ...edited[classNameMaj], [fieldNameMin]: e.detail.value! })}></IonDatetime>
+</IonItem>
